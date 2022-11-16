@@ -34,4 +34,4 @@ Go To Main Page
     Go To  ${HOME URL}
 
 Go To Register Page
-    Go To  ${REGISTER_URL}
+    Go To  ${REGISTER URL}

@@ -33,16 +33,53 @@ Register With Nonmatching Password And Password Confirmation
     Submit Credentials
     Register Should Fail With Message  Passwords dont match
 
+Login After Successful Registration
+    Set Username  olivia
+    Set Password  olivia123
+    Set Password Confirmation  olivia123
+    Submit Credentials
+    Register Should Succeed
+    Go To Login Page
+    Set Username  olivia
+    Set Password  olivia123
+    Submit Login Credentials
+    Login Should Succeed
+
+
+Login After Failed Registration
+    Set Username  kalle
+    Set Password  k
+    Set Password Confirmation  k
+    Submit Credentials
+    Register Should Fail With Message  Password too short
+    Go To Login Page
+    Set Username  kalle
+    Set Password  k
+    Submit Login Credentials
+    Login Should Fail With Message  Invalid username or password
+
+
 
 *** Keywords ***
 Register Should Succeed
     Welcome Page Should Be Open
 
+Login Should Succeed
+    Main Page Should Be Open
 
 Register Should Fail With Message
     [Arguments]  ${message}
     Register Page Should Be Open
     Page Should Contain  ${message}
+
+Login Should Fail With Message
+    [Arguments]  ${message}
+    Login Page Should Be Open
+    Page Should Contain  ${message}
+
+Submit Login Credentials
+    Click Button  Login
+
 
 Submit Credentials
     Click Button  Register
