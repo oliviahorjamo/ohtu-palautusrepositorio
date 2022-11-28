@@ -66,6 +66,10 @@ class TestOstoskori(unittest.TestCase):
         self.kori.lisaa_tuote(Tuote("Maito", 3))
         self.assertEqual(len(self.kori.ostokset()), 1)
         
-
-    #self.assertEqual(len(self.kori.ostokset()), 1)
-        
+    def test_kaksi_samaa_jälkeen_oikea_korin_sisalto(self):
+        self.kori.lisaa_tuote(Tuote("Maito", 3))
+        self.kori.lisaa_tuote(Tuote("Maito", 3))
+        ostos = self.kori.ostokset()[0]
+        self.assertEqual(len(self.kori.ostokset()), 1)
+        self.assertEqual(ostos.tuotteen_nimi(), 'Maito')
+        self.assertEqual(ostos.lukumaara(), 2)
