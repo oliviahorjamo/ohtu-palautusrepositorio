@@ -21,8 +21,30 @@ class TennisGame:
         if self.m_score1 < 4:
             tie_point = self.score_names[self.m_score1]
             return f'{tie_point}-All'
-        else:
-            return self.score_names[4]
+        return self.score_names[4]
+
+    def advantage_score(self):
+        if self.m_score1 >= 4 or self.m_score2 >= 4:
+            return True
+        return False
+
+    def whose_advantage(self):
+        player1_difference = self.m_score1 - self.m_score2
+        if player1_difference > 0:
+            return 1
+        return 2
+
+    def win(self):
+        point_difference = abs(self.m_score1 - self.m_score2)
+        if point_difference > 1:
+            return True
+        return False
+
+    def advantage_str(self, winner):
+        return f'Advantage player{winner}'
+
+    def win_str(self, winner):
+        return f'Win for player{winner}'
 
 
     def get_score(self):
@@ -32,17 +54,15 @@ class TennisGame:
         if self.tie_score():
             score = self.tie_score_str()
 
-        elif self.m_score1 >= 4 or self.m_score2 >= 4:
-            minus_result = self.m_score1 - self. m_score2
+        elif self.advantage_score():
 
-            if minus_result == 1:
-                score = "Advantage player1"
-            elif minus_result == -1:
-                score = "Advantage player2"
-            elif minus_result >= 2:
-                score = "Win for player1"
+            advantage_holder = self.whose_advantage()
+
+            if self.win():
+                score = self.win_str(advantage_holder)
             else:
-                score = "Win for player2"
+                score = self.advantage_str(advantage_holder)
+
         else:
             for i in range(1, 3):
                 if i == 1:
