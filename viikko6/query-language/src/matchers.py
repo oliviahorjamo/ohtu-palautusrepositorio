@@ -54,3 +54,14 @@ class All:
     def test(self, player):
         if player is not None:
             return True
+
+class Or:
+    def __init__(self, *matchers):
+        self._matchers = matchers
+
+    def test(self, player):
+        any_passed = False
+        for matcher in self._matchers:
+            if matcher.test(player):
+                any_passed = True
+        return any_passed
